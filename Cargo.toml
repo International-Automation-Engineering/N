@@ -1,0 +1,8 @@
+[workspace]
+members = ["crates/tensorflow", "crates/tensors"]
+
+
+[workspace.package]
+name = "N"
+version = "0.0.1"
+description = "Mathematics for Machine Learning and Analysis"
