@@ -8,7 +8,8 @@ use std::str::FromStr;
 #[grammar = "n.pest"]
 pub struct N;
 
-pub fn parse_tensor<T: Field>(s: &str) -> Tensor<T> {
+/// parses a tensor from a string; used by Tensor::from() and tensor!() internally
+fn parse_tensor<T: Field>(s: &str) -> Tensor<T> {
     let mut n = N::parse(Rule::tensor, s).unwrap();
     let mut shape: Vec<usize> = Vec::new();
     let mut value: Vec<T> = Vec::new();
@@ -81,6 +82,8 @@ pub fn parse_tensor<T: Field>(s: &str) -> Tensor<T> {
     }
 }
 
+/// a trait that encapsulates the traits needed for the generic-type
+/// used for tensors; integer, floats (i32, i64, f64, u32, etc)
 pub trait Field: Add + Mul + Sub + Div + FromStr + Debug + Copy {}
 impl<T> Field for T
 where
